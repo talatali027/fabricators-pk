@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+:root {
+--metal-gradient: linear-gradient(135deg, #F0F0F0 0%, #C0C0C0 25%, #808080 50%, #C0C0C0 75%, #F0F0F0 100%);
+}
+html { scroll-behavior: smooth; }
+body {
+background-color: #0A0A0A;
+/* Subtle brushed metal texture */
+background-image: repeating-linear-gradient(
+90deg,
+transparent,
+transparent 2px,
+rgba(255,255,255,0.01) 2px,
+rgba(255,255,255,0.01) 4px
+);
+color: #F5F5F5;
+}
+/* Metallic text shimmer */
+.text-metallic {
+background: var(--metal-gradient);
+background-size: 200% auto;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+animation: shimmer 4s linear infinite;
+}
+.whatsapp-pulse {
+animation: whatsapp-pulse 2s ease-in-out infinite;
+}
+/* Section grain overlay */
+.hero-grain::after {
+content: '';
+position: absolute;
+inset: 0;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+pointer-events: none;
+opacity: 0.4;
+}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #484848; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #909090; }
+}
+@layer components {
+.btn-chrome {
+@apply px-8 py-3 bg-chrome-mid text-steel-950 font-rajdhani font-bold tracking-widest uppercase text-sm hover:bg-chrome-shine transition-all duration-300 inline-flex justify-center items-center text-center;
+}
+.btn-ghost {
+@apply px-8 py-3 border border-chrome-mid text-chrome-mid font-rajdhani font-bold tracking-widest uppercase text-sm hover:bg-chrome-mid hover:text-steel-950 transition-all duration-300 inline-flex justify-center items-center text-center;
+}
+.card-metal {
+@apply bg-steel-900 border border-steel-700 hover:border-chrome-mid hover:bg-steel-800 hover:shadow-[0_0_15px_rgba(192,192,192,0.1)] transition-all duration-300;
+}
+.section-divider {
+@apply w-full h-px bg-gradient-to-r from-transparent via-steel-600 to-transparent my-16;
+}
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes whatsapp-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
